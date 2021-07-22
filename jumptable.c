@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 #define _ESCAPE(...) __VA_ARGS__
@@ -14,8 +13,18 @@
 			return fun(__VA_ARGS__);								\
 	}
 
-#define MYJUMPTABLE(NAME, ARRAY, INDEXTYPE, INDEXNAME, INDEXVALUE, INDEXBITS)			\
-	JUMPTABLE(int, NAME, _ESCAPE(unsigned value, int foo), -1, _ESCAPE(ARRAY), INDEXTYPE, INDEXNAME, INDEXVALUE, INDEXBITS, value, foo)
+#define MYJUMPTABLE(NAME, INDEXTYPE, INDEXNAME, INDEXVALUE, INDEXBITS, ARRAY)					\
+	JUMPTABLE(int,												\
+		NAME,												\
+		_ESCAPE(unsigned value, int foo),								\
+		-1,												\
+		_ESCAPE(ARRAY),											\
+		INDEXTYPE,											\
+		INDEXNAME,											\
+		INDEXVALUE,											\
+		INDEXBITS,											\
+		value,												\
+		foo)
 
 
 int d0(unsigned value, int foo)
@@ -42,7 +51,7 @@ int d3(unsigned value, int foo)
 	return 1;
 }
 
-MYJUMPTABLE(decode, _ESCAPE(d0, d1, d2, d3), unsigned, p0, value & 0x3, 3);
+MYJUMPTABLE(decode, unsigned, p0, value & 0x3, 3, _ESCAPE(d0, d1, d2, d3));
 
 int main(int argc, char**argv)
 {
