@@ -1,6 +1,8 @@
 
 .PHONY: all clean test
 
+CFLAGS += -Wall -Werror
+
 all: jumptable
 
 clean:

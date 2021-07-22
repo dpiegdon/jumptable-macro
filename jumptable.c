@@ -5,7 +5,7 @@
 
 #define JUMPTABLE(RETTYPE, NAME, ARGS, BADVALUE, ARRAY, INDEXTYPE, INDEXNAME, INDEXVALUE, INDEXBITS, ...)	\
 	RETTYPE NAME(ARGS) {											\
-		const RETTYPE (*jTable[1 << INDEXBITS]) (ARGS) = {ARRAY};					\
+		static const RETTYPE (*const jTable[1 << INDEXBITS]) (ARGS) = {ARRAY};				\
 		INDEXTYPE INDEXNAME = (INDEXVALUE) & ((1 << INDEXBITS)-1);					\
 		RETTYPE (*fun) (ARGS) = jTable[INDEXNAME];							\
 		if (NULL == fun)										\
