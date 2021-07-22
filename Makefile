@@ -23,4 +23,5 @@ test: jumptable
 %.asm: %.c
 	gcc -S $(CFLAGS) $^ -o $@
 
-jumptable: jumptable.c
+jumptable: jumptable.c jumptable.h
+	gcc -o $@ $<
