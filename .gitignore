@@ -1,2 +1,4 @@
 .*.swp
+*.asm
+*.disasm
 jumptable
