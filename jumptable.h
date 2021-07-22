@@ -16,25 +16,29 @@
  *
  * ARGS: full type/arguments list of that function.
  *             e.g. _ESCAPE(int foo, unsigned bar)
+ *             needs to be escaped to avoid issues with commas.
  *
  * CALLEEARGS: full arguments to be passed along to selected jumptable entry.
  *             likely the same as above, but without types.
+ *             needs to be escaped to avoid issues with commas.
  *             e.g. _ESCAPE(foo, bar)
  *
  * BADVALUE: value to be returned if selected jumptable entry was NULL.
  *
  * ARRAY: full list of jumptargets that defines jumptable.
- *        e.g. (target0, target1, target2, target3)
+ *        needs to be escaped to avoid issues with commas.
+ *        e.g. _ESCAPE(target0, target1, target2, target3)
  *
  * INDEXTYPE: type to be used for index-variable
  *            e.g unsigned
  *
  * INDEXNAME: name to be used for index-variable
  *
- * INDEXVALUE: expression to be assigned to index-variable; this actually selects jumptable entry.
- *             e.g. _ESCAPE((foo >> 4) & 0x3)
+ * INDEXVALUE: term to calculate jumptable index given the current parameters
+ *             e.g. ((foo >> 4) & 0x3)
  *
  * INDEXBITS: number of bits the index-selector has. ARRAY needs to have 2^INDEXBITS entries.
+ *            this will enforce the jumptable size and also a ceiling on the INDEXVALUE.
  */
 #define JUMPTABLE(RETTYPE, NAME, ARGS, CALLEEARGS, BADVALUE, ARRAY, INDEXTYPE, INDEXNAME, INDEXVALUE, INDEXBITS)	\
 	RETTYPE NAME(ARGS) {												\
